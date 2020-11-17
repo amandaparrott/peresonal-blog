@@ -33,14 +33,16 @@ router.put('/:id', async (req, res) => {
 });
 
 router.post('/', async(req, res) => {
+    console.log('test');
     try {
         const name = req.body.name;
         let newAuthor = await db.Authors.newAuthor(name);
         console.log(newAuthor);
-        res.json(await db.Blogs.writeBlog(req.body.title, req.body.content, newAuthor.insertId)[0]);
+        let newBlog = await db.Blogs.writeBlog(req.body.title, req.body.content, newAuthor.insertId);
+        res.send(newBlog);
     } catch (e) {
         console.log(e);
-        res.sendStatus(500); 
+        res.status(500).send(e); 
     }
 });
 

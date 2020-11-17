@@ -1,63 +1,30 @@
 import * as React from 'react';
+import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import AddBlog from './components/AddBlog';
 
-class App extends React.Component<IAppProps, IAppState> {
-	constructor(props: IAppProps) {
-		super(props);
-		this.state = {
-			name: null
-		};
-	}
+const App: React.FC<IAppProps> = () => {
 
-	async componentDidMount() {
-		try {
-			let r = await fetch('/api/hello');
-			let name = await r.json();
-			this.setState({ name });
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	return (
+		<Router>
+			<nav className="navbar sticky-top navbar-light bg-info">
+				<Link to={'/'}>
+					<button className="btn btn-outline-secondary" type="button">Blogs</button>
+				</Link>
+				<Link to={'/addBlog'}>
+					<button className="btn btn-outline-secondary" type="button">New Blog Entry</button>
+				</Link>
+			</nav>
+			<Switch>
+				<Route exact path="/" component={HomePage} />
+				{/* <Route path="/blogs" component={Blogs} /> */}
+				{/* <Route path="/:id/admin" component={EditBlog} /> */}
+				<Route path="/addblog" component={AddBlog} />
+			</Switch>
+		</Router>
+	)
+};
 
-	render() {
-		return (
-			<main className="container my-5">
-				<h1 className="text-primary text-center">Hello {this.state.name}!</h1>
-			</main>
-		);
-	}
-}
-
-export interface IAppProps {}
-
-export interface IAppState {
-	name: string;
-}
+interface IAppProps { }
 
 export default App;
-
-//
-// const App = (props: AppProps) => {
-// 	const [greeting, setGreeting] = React.useState<string>('');
-
-// 	React.useEffect(() => {
-// 		(async () => {
-// 			try {
-// 				const res = await fetch('/api/hello');
-// 				const greeting = await res.json();
-// 				setGreeting(greeting);
-// 			} catch (error) {
-// 				console.log(error);
-// 			}
-// 		})();
-// 	}, []);
-
-// 	return (
-// 		<div className="min-vh-100 d-flex justify-content-center align-items-center">
-// 			<h1 className="display-1">Hello {greeting}!</h1>
-// 		</div>
-// 	);
-// };
-
-// interface AppProps {}
-
-// export default App;
