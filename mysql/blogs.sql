@@ -93,6 +93,6 @@ create user 'blogsapp'@'localhost'
 identified by 'pwmade';
 
 grant all privileges 
-on blog.*
+on blogs.*
 to'blogsapp'@'localhost';
 
