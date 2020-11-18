@@ -2,6 +2,7 @@ import * as React from 'react';
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import AddBlog from './components/AddBlog';
+import EditBlog from './components/EditBlog'
 
 const App: React.FC<IAppProps> = () => {
 
@@ -18,7 +19,7 @@ const App: React.FC<IAppProps> = () => {
 			<Switch>
 				<Route exact path="/" component={HomePage} />
 				{/* <Route path="/blogs" component={Blogs} /> */}
-				{/* <Route path="/:id/admin" component={EditBlog} /> */}
+				<Route path="/:id/admin" component={EditBlog} />
 				<Route path="/addblog" component={AddBlog} />
 			</Switch>
 		</Router>

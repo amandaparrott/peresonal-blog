@@ -12,7 +12,7 @@ const BlogCard: React.FC<IBlogCardProps> = props => {
                 <h5 className="card-title">{props.blogs.title}</h5>
                 <p className="card-text">{props.blogs.content}</p>
                 <Link to={`/${props.blogs.id}/admin`} >
-                    <button className="btn btn-primary rounded">Admin</button>
+                    <button className="btn btn-secondary rounded">Admin</button>
                 </Link>
             </div>
             <div className="card-footer text-muted">
