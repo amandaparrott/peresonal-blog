@@ -1,15 +1,11 @@
 import * as mysql from "mysql";
+import config from '../config';
 import Blogs from "./blogs";
 import Authors from "./authors";
 import Tags from "./tags";
 
-export const Connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "blogsapp",
-  password: "pwmade",
-  database: "blogs",
-});
+const Connection = mysql.createConnection(config.mysql);
+
 
 export const Query = <T = any>(query: string, values?: any) => {
   return new Promise<T>((resolve, reject) => {
