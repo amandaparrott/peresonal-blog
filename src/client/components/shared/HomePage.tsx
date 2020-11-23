@@ -1,5 +1,5 @@
 import React from 'react';
-import BlogTimeline from './BlogTimeline';
+import BlogTimeline from '../../components/public/BlogTimeline';
 
 const HomePage: React.FC<IHomePageProps> = () => {
     return (

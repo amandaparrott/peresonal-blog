@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import BlogCard from './BlogCard';
 
-const ChirpsTimeline: React.FC<IBlogsProps> = props => {
+const BlogsTimeline: React.FC<IBlogsProps> = props => {
     const [blogs, setBlogs] = useState<IBlogs[]>([])
 
     useEffect(() => {
@@ -33,4 +33,4 @@ interface IBlogs {
 
 interface IBlogsProps { }
 
-export default ChirpsTimeline;
+export default BlogsTimeline;
