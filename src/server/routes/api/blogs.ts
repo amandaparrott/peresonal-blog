@@ -1,7 +1,15 @@
 import * as express from 'express';
-import db from '../db';
+import db from '../../db';
 
 const router = express.Router();
+
+const isAdmin: express.RequestHandler = (req, res, next) => {
+    if (!req.user || req.user.role !== 'admin') {
+        return res.sendStatus(401);
+    } else {
+        return next();
+    }
+};
 
 router.get('/', async (req, res) => {
     try{
@@ -13,7 +21,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', isAdmin, async (req, res) => {
     const id = Number(req.params.id);
     try {
         const [blog] = await db.Blogs.getBlog(id);
@@ -32,14 +40,21 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-router.post('/', async(req, res) => {
+router.post('/', async(req: express.Request, res: express.Response) => {
     console.log('test');
     try {
-        const name = req.body.name;
-        let newAuthor = await db.Authors.newAuthor(name);
-        console.log(newAuthor);
-        let newBlog = await db.Blogs.writeBlog(req.body.title, req.body.content, newAuthor.insertId);
-        res.send(newBlog);
+         const author = req.body.author;
+         const blog = req.body.blog;
+         const blogtags = req.body.tags;
+         const newAuthor = await db.Authors.newAuthor(author.name)
+         const newBlog = await db.Blogs.writeBlog(blog.title, blog.content, newAuthor.insertId);
+         const newBlogTags = await db.Tags.newTag(newBlog.insertId, blogtags);
+
+        res.status(200).send(`
+        author created with id: ${newAuthor.insertId}
+        blog created with id: ${newBlog.insertId}
+        `);
+         
     } catch (e) {
         console.log(e);
         res.status(500).send(e); 

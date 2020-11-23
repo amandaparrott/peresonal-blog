@@ -1,6 +1,6 @@
 import { Query } from './index';
 
-const writeBlog = async (title: string, content: string, authorid: number) => Query(`
+const writeBlog = async (title: string, content: string, authorid: number) => Query<{insertId: number}>(`
 INSERT INTO blogs(title, content, authorid)
 VALUES (?, ?, ?)
 `, [title, content, authorid]);
